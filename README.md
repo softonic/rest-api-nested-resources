@@ -103,7 +103,6 @@ Testing
 `softonic/rest-api-nested-resources` has a [PHPUnit](https://phpunit.de) test suite, and a coding style compliance test suite using [PHP CS Fixer](http://cs.sensiolabs.org/).
 
 To run the tests, run the following command from the project folder.
-
 ``` bash
 $ make tests
 ```
