@@ -12,7 +12,7 @@ trait PathParameters
             ->parameters();
 
         $pathParametersKeys = array_map(
-            fn($key) => 'id_' . $key,
+            fn ($key) => 'id_' . $key,
             array_keys($pathParameters)
         );
 

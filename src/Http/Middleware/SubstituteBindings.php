@@ -26,13 +26,11 @@ class SubstituteBindings
 
     /**
      * Create a new bindings substitutor.
-     *
-     * @return void
      */
     public function __construct(Registrar $router, Container $container = null)
     {
         $this->router    = $router;
-        $this->container = $container ?: new Container;
+        $this->container = $container ?: new Container();
     }
 
     /**
