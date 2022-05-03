@@ -1,12 +1,12 @@
 {
-  "name": "softonic/<PACKAGE-ID>",
+  "name": "softonic/rest-api-nested-resources\n",
   "type": "library",
-  "description" : "<DESCRIPTION>",
+  "description" : "Utilities to work with REST APIs with nested resources",
   "keywords": [],
   "license": "Apache-2.0",
-  "homepage": "https://github.com/softonic/<PACKAGE-ID>",
+  "homepage": "https://github.com/softonic/rest-api-nested-resources",
   "support": {
-    "issues": "https://github.com/softonic/<PACKAGE-ID>/issues"
+    "issues": "https://github.com/softonic/rest-api-nested-resources/issues"
   },
   "require": {
     "php": ">=8.0"
@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Softonic\\<NAMESPACE>\\": "src/"
+      "Softonic\\RestApiNestedResources\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Softonic\\<NAMESPACE>\\": "tests/"
+      "Softonic\\RestApiNestedResources\\": "tests/"
     }
   },
   "scripts": {
