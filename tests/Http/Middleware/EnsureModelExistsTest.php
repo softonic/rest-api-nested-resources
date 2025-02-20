@@ -2,8 +2,12 @@
 
 namespace Softonic\RestApiNestedResources\Http\Middleware;
 
+use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Mockery;
+use Override;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Softonic\RestApiNestedResources\PreProcessors\EnsureModelExists as EnsureModelExistsProcessor;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -14,19 +18,18 @@ class EnsureModelExistsTest extends TestCase
 
     private EnsureModelExists $middleware;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->ensureModelExistsProcessor = \Mockery::mock(EnsureModelExistsProcessor::class);
+        $this->ensureModelExistsProcessor = Mockery::mock(EnsureModelExistsProcessor::class);
 
         $this->middleware = new EnsureModelExists($this->ensureModelExistsProcessor);
     }
 
-    /**
-     * @test
-     */
-    public function whenModelExistsItShouldPassToTheNextMiddleware()
+    #[Test]
+    public function whenModelExistsItShouldPassToTheNextMiddleware(): void
     {
         $pathParameters    = [
             'program'  => 'f0f1ae26-e44a-460a-9f59-f53c83ec4372',
@@ -66,10 +69,8 @@ class EnsureModelExistsTest extends TestCase
         self::assertSame($controllerResponse, $response, 'The response must not be modified');
     }
 
-    /**
-     * @test
-     */
-    public function whenModelDoesNotExistItShouldAbortTheExecution()
+    #[Test]
+    public function whenModelDoesNotExistItShouldAbortTheExecution(): void
     {
         $pathParameters    = [
             'program'  => 'f0f1ae26-e44a-460a-9f59-f53c83ec4372',
@@ -113,7 +114,7 @@ class EnsureModelExistsTest extends TestCase
 
     private function getRequest(array $pathParameters, array $requestParameters): Request
     {
-        $request = \Mockery::mock(Request::class);
+        $request = Mockery::mock(Request::class);
         $request->shouldReceive('route->parameters')
             ->once()
             ->andReturn($pathParameters);
@@ -127,16 +128,14 @@ class EnsureModelExistsTest extends TestCase
     private function whenNextMiddlewareIsExecuted(): array
     {
         $controllerResponse = Response::getFacadeRoot();
-        $next               = function (Request $request) use ($controllerResponse) {
-            return $controllerResponse;
-        };
+        $next               = fn (Request $request) => $controllerResponse;
 
         return [$controllerResponse, $next];
     }
 
-    private function whenNextMiddlewareIsNotExecuted(): \Closure
+    private function whenNextMiddlewareIsNotExecuted(): Closure
     {
-        return function (Request $request) {
+        return function (Request $request): void {
             self::assertTrue(false, 'The next handler must never be executed in this case.');
         };
     }

@@ -15,11 +15,6 @@ use Softonic\RestApiNestedResources\Models\MultiKeyModel;
 class SubstituteBindings
 {
     /**
-     * The router instance.
-     */
-    protected Registrar $router;
-
-    /**
      * The IoC container instance.
      */
     protected Container $container;
@@ -27,9 +22,12 @@ class SubstituteBindings
     /**
      * Create a new bindings substitutor.
      */
-    public function __construct(Registrar $router, Container $container = null)
-    {
-        $this->router    = $router;
+    public function __construct(/**
+     * The router instance.
+     */
+        protected Registrar $router,
+        Container $container = null
+    ) {
         $this->container = $container ?: new Container();
     }
 
@@ -87,6 +85,7 @@ class SubstituteBindings
             foreach (array_keys($parameters) as $parameterName) {
                 $route->forgetParameter($parameterName);
             }
+
             $route->setParameter($parameter->name, $model);
         }
     }
