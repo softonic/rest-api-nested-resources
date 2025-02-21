@@ -4,7 +4,7 @@ sudo: false
 
 matrix:
   include:
-    - php: 8.1
+    - php: 8.3
       env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=true
     - php: master
       env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=false
