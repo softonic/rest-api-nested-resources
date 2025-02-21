@@ -10,10 +10,10 @@ class EnsureModelExists
     {
         $parametersToCheck = [];
         foreach ($fieldsToCheck as $fieldToCheck) {
-            $fieldToCheckParts = explode('=', $fieldToCheck);
+            $fieldToCheckParts = explode('=', (string) $fieldToCheck);
 
             $field = end($fieldToCheckParts);
-            if (!array_key_exists($field, $parameters)) {
+            if (!isset($parameters[$field])) {
                 return;
             }
 

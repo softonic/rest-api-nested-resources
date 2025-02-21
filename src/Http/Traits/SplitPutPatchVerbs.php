@@ -35,7 +35,7 @@ trait SplitPutPatchVerbs
 
     private function bindModelParameters(array $parameters): array
     {
-        $methodArguments = (new ReflectionMethod(__CLASS__, 'modify'))->getParameters();
+        $methodArguments = (new ReflectionMethod(self::class, 'modify'))->getParameters();
 
         $modelMethodArguments = array_filter(
             $methodArguments,

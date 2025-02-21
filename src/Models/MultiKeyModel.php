@@ -3,6 +3,7 @@
 namespace Softonic\RestApiNestedResources\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Override;
 use Ramsey\Uuid\Uuid;
 
 abstract class MultiKeyModel extends Model
@@ -42,6 +43,7 @@ abstract class MultiKeyModel extends Model
         return self::generateUuidFromValues(array_intersect_key($values, array_flip($generatedIds[$field])));
     }
 
+    #[Override]
     protected static function boot()
     {
         parent::boot();
@@ -52,7 +54,7 @@ abstract class MultiKeyModel extends Model
 
     protected static function generateIds(array $generatedIdsConfig): callable
     {
-        return function (Model $model) use ($generatedIdsConfig) {
+        return function (Model $model) use ($generatedIdsConfig): void {
             $generatedIds = self::getGeneratedIds($model->toArray(), $generatedIdsConfig);
             foreach ($generatedIds as $field => $value) {
                 $model->setAttribute($field, $value);
@@ -62,6 +64,6 @@ abstract class MultiKeyModel extends Model
 
     protected static function generateUuidFromValues(array $values): string
     {
-        return Uuid::uuid5(Uuid::NAMESPACE_DNS, implode($values))->toString();
+        return Uuid::uuid5(Uuid::NAMESPACE_DNS, implode('', $values))->toString();
     }
 }
