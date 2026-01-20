@@ -33,7 +33,7 @@ abstract class MultiKeyModel extends Model
         return $generatedIds;
     }
 
-    public static function generateIdForField(string $field, array $values, array $generatedIds = null): string
+    public static function generateIdForField(string $field, array $values, ?array $generatedIds = null): string
     {
         $generatedIds ??= static::$generatedIds;
 

@@ -22,7 +22,7 @@ class SubstituteBindings
     /**
      * Create a new bindings substitutor.
      */
-    public function __construct(protected Registrar $router, Container $container = null)
+    public function __construct(protected Registrar $router, ?Container $container = null)
     {
         $this->container = $container ?: new Container();
     }
