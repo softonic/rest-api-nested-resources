@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionParameter;
 use Softonic\RestApiNestedResources\Models\MultiKeyModel;
 
 trait SplitPutPatchVerbs
@@ -35,11 +36,11 @@ trait SplitPutPatchVerbs
 
     private function bindModelParameters(array $parameters): array
     {
-        $methodArguments = (new ReflectionMethod(self::class, 'modify'))->getParameters();
+        $methodArguments = new ReflectionMethod(self::class, 'modify')->getParameters();
 
         $modelMethodArguments = array_filter(
             $methodArguments,
-            function ($argument): bool {
+            function (ReflectionParameter $argument): bool {
                 if ($argument->getType() && !$argument->getType()->isBuiltin()) {
                     $class = new ReflectionClass($argument->getType()->getName());
 
